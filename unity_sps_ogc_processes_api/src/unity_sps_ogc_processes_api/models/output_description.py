@@ -38,7 +38,7 @@ class OutputDescription(BaseModel):
     description: Optional[StrictStr] = None
     keywords: Optional[List[StrictStr]] = None
     metadata: Optional[List[Metadata]] = None
-    _schema: ModelSchema = Field(alias="schema")
+    schema_: ModelSchema = Field(alias="schema")
     __properties: ClassVar[List[str]] = ["title", "description", "keywords", "metadata", "schema"]
 
     model_config = {
@@ -85,9 +85,9 @@ class OutputDescription(BaseModel):
                 if _item:
                     _items.append(_item.to_dict())
             _dict['metadata'] = _items
-        # override the default output from pydantic by calling `to_dict()` of _schema
-        if self._schema:
-            _dict['schema'] = self._schema.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of schema
+        if self.schema_:
+            _dict['schema'] = self.schema_.to_dict()
         return _dict
 
     @classmethod
@@ -107,5 +107,3 @@ class OutputDescription(BaseModel):
             "schema": ModelSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None
         })
         return _obj
-
-

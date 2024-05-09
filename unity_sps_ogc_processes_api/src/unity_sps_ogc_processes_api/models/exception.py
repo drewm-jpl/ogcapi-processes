@@ -21,15 +21,14 @@ import json
 
 
 
-from pydantic import ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from unity_sps_ogc_processes_api.models.object import object
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class Exception(object):
+class Exception(BaseModel):
     """
     JSON schema for exceptions based on RFC 7807
     """ # noqa: E501
@@ -109,5 +108,3 @@ class Exception(object):
                 _obj.additional_properties[_key] = obj.get(_key)
 
         return _obj
-
-

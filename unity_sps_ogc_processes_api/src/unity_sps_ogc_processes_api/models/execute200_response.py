@@ -54,7 +54,7 @@ class Execute200Response(BaseModel):
     oneof_schema_7_validator: Optional[Union[StrictBytes, StrictStr]] = None
     # data type: Dict[str, InlineOrRefData]
     oneof_schema_8_validator: Optional[Dict[str, InlineOrRefData]] = None
-    actual_instance: Optional[Union[Dict[str, InlineOrRefData], List[object], bool, file, float, int, object, str]] = None
+    actual_instance: Optional[Union[Dict[str, InlineOrRefData], List[object], bool, float, int, object, str]] = None
     one_of_schemas: List[str] = Literal["Dict[str, InlineOrRefData]", "List[object]", "bool", "file", "float", "int", "object", "str"]
 
     model_config = {
@@ -254,5 +254,3 @@ class Execute200Response(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

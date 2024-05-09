@@ -40,11 +40,11 @@ class ModelSchema(BaseModel):
     ModelSchema
     """
     # data type: Reference
-    oneof_schema_1_validator: Optional[Reference] = None
+    # oneof_schema_1_validator: Optional[Reference] = None
     # data type: SchemaOneOf
-    oneof_schema_2_validator: Optional[SchemaOneOf] = None
+    # oneof_schema_2_validator: Optional[SchemaOneOf] = None
     actual_instance: Optional[Union[Reference, SchemaOneOf]] = None
-    one_of_schemas: List[str] = Literal["Reference", "SchemaOneOf"]
+    # one_of_schemas: List[str] = Literal["Reference", "SchemaOneOf"]
 
     model_config = {
         "validate_assignment": True,
@@ -145,5 +145,3 @@ class ModelSchema(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

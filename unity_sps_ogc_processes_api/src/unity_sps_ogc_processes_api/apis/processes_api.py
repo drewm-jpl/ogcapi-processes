@@ -52,7 +52,7 @@ for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     response_model_by_alias=True,
 )
 async def execute(
-    processId:  = Path(..., description=""),
+    processId:  str = Path(..., description=""),
     execute: Execute = Body(None, description="An execution request specifying any inputs for the process to execute, and optionally to select specific outputs. With support for _Part 3: Workflows and chaining_, this execution request may specify a complex processing workflow e.g., including nested processes and OGC API collections as inputs."),
     prefer: str = Header(None, description="Indicates client preferences, including whether the client is capable of asynchronous processing. A &#x60;respond-async&#x60; preference indicates a preference for asynchronous processing. A &#x60;wait: &lt;x&gt;s&#x60; preference indicates that the client prefers to wait up to x seconds to receive a reponse synchronously before the server falls back to asynchronous processing."),
 ) -> Execute200Response:
@@ -71,7 +71,7 @@ async def execute(
     response_model_by_alias=True,
 )
 async def get_process_description(
-    processId:  = Path(..., description=""),
+    processId:  str = Path(..., description=""),
 ) -> Process:
     """The process description contains information about inputs and outputs and a link to the execution-endpoint for the process. The Core does not mandate the use of a specific process description to specify the interface of a process. That said, the Core requirements class makes the following recommendation:  Implementations SHOULD consider supporting the OGC process description.  For more information, see [Section 7.8](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_description). """
     return BaseProcessesApi.subclasses[0]().get_process_description(processId)

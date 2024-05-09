@@ -12,13 +12,12 @@ from unity_sps_ogc_processes_api.models.process_list import ProcessList  # noqa:
 from unity_sps_ogc_processes_api.models.processes_list import ProcessesList  # noqa: F401
 from unity_sps_ogc_processes_api.models.status_info import StatusInfo  # noqa: F401
 
-
 def test_execute(client: TestClient):
     """Test case for execute
 
     execute a process.
     """
-    execute = unity_sps_ogc_processes_api.Execute()
+    execute = Execute()
 
     headers = {
         "prefer": 'prefer_example',
@@ -71,4 +70,3 @@ def test_get_processes(client: TestClient):
 
     # uncomment below to assert the status code of the HTTP response
     #assert response.status_code == 200
-

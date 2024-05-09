@@ -22,10 +22,13 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Union, Any, ClassVar, Dict, List, Optional
 from unity_sps_ogc_processes_api.models.input_description_all_of_max_occurs import InputDescriptionAllOfMaxOccurs
 from unity_sps_ogc_processes_api.models.metadata import Metadata
 from unity_sps_ogc_processes_api.models.model_schema import ModelSchema
+from typing import Any, List, Optional
+from unity_sps_ogc_processes_api.models.reference import Reference
+from unity_sps_ogc_processes_api.models.schema_one_of import SchemaOneOf
 try:
     from typing import Self
 except ImportError:
@@ -42,7 +45,7 @@ class InputDescription(BaseModel):
     value_passing: Optional[List[StrictStr]] = Field(default=None, alias="valuePassing")
     min_occurs: Optional[StrictInt] = Field(default=1, alias="minOccurs")
     max_occurs: Optional[InputDescriptionAllOfMaxOccurs] = Field(default=None, alias="maxOccurs")
-    _schema: ModelSchema = Field(alias="schema")
+    schema_: Optional[Union[Reference, SchemaOneOf]] = Field(alias="schema")
     __properties: ClassVar[List[str]] = ["title", "description", "keywords", "metadata", "valuePassing", "minOccurs", "maxOccurs", "schema"]
 
     @field_validator('value_passing')
@@ -103,9 +106,9 @@ class InputDescription(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of max_occurs
         if self.max_occurs:
             _dict['maxOccurs'] = self.max_occurs.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of _schema
-        if self._schema:
-            _dict['schema'] = self._schema.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of schema
+        if self.schema_:
+            _dict['schema'] = self.schema_.to_dict()
         return _dict
 
     @classmethod
@@ -128,5 +131,3 @@ class InputDescription(BaseModel):
             "schema": ModelSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None
         })
         return _obj
-
-

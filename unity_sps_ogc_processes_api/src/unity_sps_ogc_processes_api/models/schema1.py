@@ -148,4 +148,3 @@ class Schema1(BaseModel):
 from unity_sps_ogc_processes_api.models.schema_one_of import SchemaOneOf
 # TODO: Rewrite to not use raise_errors
 Schema1.model_rebuild(raise_errors=False)
-

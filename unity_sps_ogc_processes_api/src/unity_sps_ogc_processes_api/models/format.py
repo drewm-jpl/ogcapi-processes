@@ -35,7 +35,7 @@ class Format(BaseModel):
     """ # noqa: E501
     media_type: Optional[StrictStr] = Field(default=None, alias="mediaType")
     encoding: Optional[StrictStr] = None
-    _schema: Optional[FormatSchema] = Field(default=None, alias="schema")
+    schema_: Optional[FormatSchema] = Field(default=None, alias="schema")
     __properties: ClassVar[List[str]] = ["mediaType", "encoding", "schema"]
 
     model_config = {
@@ -75,9 +75,9 @@ class Format(BaseModel):
             },
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of _schema
-        if self._schema:
-            _dict['schema'] = self._schema.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of schema
+        if self.schema_:
+            _dict['schema'] = self.schema_.to_dict()
         return _dict
 
     @classmethod
@@ -95,5 +95,3 @@ class Format(BaseModel):
             "schema": FormatSchema.from_dict(obj.get("schema")) if obj.get("schema") is not None else None
         })
         return _obj
-
-

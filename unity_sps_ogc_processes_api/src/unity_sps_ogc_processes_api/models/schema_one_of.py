@@ -50,7 +50,7 @@ class SchemaOneOf(BaseModel):
     required: Optional[Annotated[List[StrictStr], Field(min_length=1)]] = None
     enum: Optional[Annotated[List[Dict[str, Any]], Field(min_length=1)]] = None
     type: Optional[StrictStr] = None
-    _not: Optional[Schema1] = Field(default=None, alias="not")
+    not_: Optional[Schema1] = Field(default=None, alias="not")
     all_of: Optional[List[Schema1]] = Field(default=None, alias="allOf")
     one_of: Optional[List[Schema1]] = Field(default=None, alias="oneOf")
     any_of: Optional[List[Schema1]] = Field(default=None, alias="anyOf")
@@ -67,7 +67,7 @@ class SchemaOneOf(BaseModel):
     deprecated: Optional[StrictBool] = False
     content_media_type: Optional[StrictStr] = Field(default=None, alias="contentMediaType")
     content_encoding: Optional[StrictStr] = Field(default=None, alias="contentEncoding")
-    content_schema: Optional[StrictStr] = Field(default=None, alias="contentSchema")
+    content_schema_: Optional[StrictStr] = Field(default=None, alias="contentSchema")
     __properties: ClassVar[List[str]] = ["title", "multipleOf", "maximum", "exclusiveMaximum", "minimum", "exclusiveMinimum", "maxLength", "minLength", "pattern", "maxItems", "minItems", "uniqueItems", "maxProperties", "minProperties", "required", "enum", "type", "not", "allOf", "oneOf", "anyOf", "items", "properties", "additionalProperties", "description", "format", "default", "nullable", "readOnly", "writeOnly", "example", "deprecated", "contentMediaType", "contentEncoding", "contentSchema"]
 
     @field_validator('type')
@@ -117,9 +117,9 @@ class SchemaOneOf(BaseModel):
             },
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of _not
-        if self._not:
-            _dict['not'] = self._not.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of not_
+        if self.not_:
+            _dict['not'] = self.not_.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in all_of (list)
         _items = []
         if self.all_of:
@@ -213,4 +213,3 @@ from unity_sps_ogc_processes_api.models.schema1 import Schema1
 from unity_sps_ogc_processes_api.models.schema_one_of_additional_properties import SchemaOneOfAdditionalProperties
 # TODO: Rewrite to not use raise_errors
 SchemaOneOf.model_rebuild(raise_errors=False)
-
