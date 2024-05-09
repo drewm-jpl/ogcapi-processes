@@ -15,7 +15,6 @@
 
 from fastapi import FastAPI
 
-from unity_sps_ogc_processes_api.apis.api_api import router as APIApiRouter
 from unity_sps_ogc_processes_api.apis.conformance_api import router as ConformanceApiRouter
 from unity_sps_ogc_processes_api.apis.jobs_api import router as JobsApiRouter
 from unity_sps_ogc_processes_api.apis.landing_page_api import router as LandingPageApiRouter
@@ -27,7 +26,6 @@ app = FastAPI(
     version="0.1",
 )
 
-app.include_router(APIApiRouter)
 app.include_router(ConformanceApiRouter)
 app.include_router(JobsApiRouter)
 app.include_router(LandingPageApiRouter)
