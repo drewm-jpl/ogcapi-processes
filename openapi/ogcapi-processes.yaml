@@ -30,20 +30,14 @@ paths:
    # OGC API - Processes - Part 1: Core
    /processes:
       # If OGC API - Part 1 only uncomment the line below
-      #$ref: 'paths/processes-core/pProcessList.yaml'
-
-      # OGC API - Processes Part 2: Deploy, Replace, Undeploy
-      $ref: 'paths/processes-dru/pProcessListDeploy.yaml'
+      $ref: 'paths/processes-core/pProcessList.yaml'
 
    /processes/{processId}:
       # OGC API - Processes Part 1: Core
-      #$ref: 'paths/processes-core/pProcessDescription.yaml'
-      
-      # OGC API - Processes Part 2: Deploy, Replace, Undeploy
-      $ref: 'paths/processes-dru/pProcessDescriptionReplaceUndeploy.yaml'
+      $ref: 'paths/processes-core/pProcessDescription.yaml'
 
    /processes/{processId}/execution:
-      $ref: 'paths/processes-workflows/pExecution-workflows.yaml'
+      $ref: 'paths/processes-core/pExecution.yaml'
 
    # OGC API - Processes - Part 1: Core (Jobs, required for ASync execution)
    /jobs:
@@ -62,43 +56,6 @@ components:
       # https://davidgarcia.dev/posts/how-to-split-open-api-spec-into-multiple-files/ vs.
       # https://stackoverflow.com/questions/64940379/ref-ing-multiple-files-at-the-components-schemas-top-level-in-openapi-3
 
-      # Common - Core
-      confClasses:
-         $ref: 'schemas/common-core/confClasses.yaml'
-      link:
-         $ref: 'schemas/common-core/link.yaml'
-      landingPage:
-         $ref: 'schemas/common-core/landingPage.yaml'
-      exception:
-         $ref: 'schemas/common-core/exception.yaml'
-
-      # Common - Geospatial Data
-      collections:
-         $ref: 'schemas/common-geodata/collections.yaml'
-      collectionInfo:
-         $ref: 'schemas/common-geodata/collectionInfo.yaml'
-      extent:
-         $ref: 'schemas/common-geodata/extent.yaml'
-      extent-uad:
-         $ref: 'schemas/common-geodata/extent-uad.yaml'
-      crs:
-         $ref: 'schemas/common-geodata/crs.yaml'
-      dataType:
-         $ref: 'schemas/common-geodata/dataType.yaml'
-      timeStamp:
-         $ref: 'schemas/common-geodata/timeStamp.yaml'
-      # projJSON:
-      #   $ref: 'schemas/common-geodata/projJSON.yaml'
-      numberReturned:
-         $ref: 'schemas/common-geodata/numberReturned.yaml'
-      numberMatched:
-         $ref: 'schemas/common-geodata/numberMatched.yaml'
-
-      # Dynamic (or implementation-specific)
-      enumeration:
-         $ref: 'schemas/dynamic/enumeration.yaml'
-      processes-list:
-         $ref: 'schemas/dynamic/processes-list.yaml'
 
       # Processes - Core
       processSummary:
@@ -150,26 +107,7 @@ components:
       statusInfo:
          $ref: 'schemas/processes-core/statusInfo.yaml'
 
-      # OGC API - Common - Part 2: Deploy, Replace, Undeploy
-      ogcapppkg:
-         $ref: 'schemas/processes-dru/ogcapppkg.yaml'
-      staticIndicator:
-         $ref: 'schemas/processes-dru/staticIndicator.yaml'
-
    parameters:
-      # Common - Core
-      f-metadata:
-         $ref: 'parameters/unspecified/f-metadata.yaml'
-
-      # Common - Geospatial data
-      datetime:
-         $ref: 'parameters/common-geodata/datetime.yaml'
-
-      # Common - CRS
-      crs:
-         $ref: 'parameters/common-crs/crs.yaml'
-      subset-crs:
-         $ref: 'parameters/common-crs/subset-crs.yaml'
 
       # Processes - Core
       processId-path:
@@ -198,10 +136,6 @@ components:
       maxDuration:
          $ref: 'parameters/processes-core/maxDuration.yaml'
 
-      # OGC API - Common - Part 2: Deploy, Replace, Undeploy
-      w:
-         $ref: 'parameters/processes-dru/w-param.yaml'      
-
    responses:
       # Generic Errors
       NotFound:
@@ -217,13 +151,6 @@ components:
       Exception:
          $ref: 'responses/common-core/rException.yaml'
 
-      # Common - Core
-      LandingPage:
-         $ref: 'responses/common-core/rLandingPage.yaml'
-      Conformance:
-         $ref: 'responses/common-core/rConformance.yaml'
-      API:
-         $ref: 'responses/common-core/rAPI.yaml'
 
       # Dynamic enumeration of resources specific to this implementation
       Enumeration:
@@ -248,15 +175,3 @@ components:
          $ref: 'responses/processes-core/rExecuteSync.yaml'
       ExecuteSyncRawRef:
          $ref: 'responses/processes-core/rExecuteSyncRawRef.yaml'
-
-      # OGC API - Common - Part 2: Deploy, Replace, Undeploy
-      DeployProcess:
-         $ref: 'responses/processes-dru/rDeployProcess.yaml'
-      EmptyResponse:
-         $ref: 'responses/processes-dru/rEmpty.yaml'
-
-      # Part 2 additional excepions
-      DuplicateProcess:
-         $ref: 'responses/processes-dru/rDuplicateProcess.yaml'
-      ImmutableProcess:
-         $ref: 'responses/processes-dru/rImmutableProcess.yaml'
