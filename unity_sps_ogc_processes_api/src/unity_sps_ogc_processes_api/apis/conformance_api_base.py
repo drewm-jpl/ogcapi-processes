@@ -12,8 +12,5 @@ class BaseConformanceApi:
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
         BaseConformanceApi.subclasses = BaseConformanceApi.subclasses + (cls,)
-    def get_conformance(
-        self,
-        f: str,
-    ) -> ConfClasses:
+    def get_conformance(self) -> ConfClasses:
         ...

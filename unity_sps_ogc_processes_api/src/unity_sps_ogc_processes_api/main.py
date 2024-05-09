@@ -26,7 +26,7 @@ app = FastAPI(
     version="0.1",
 )
 
-app.include_router(ConformanceApiRouter)
-app.include_router(JobsApiRouter)
 app.include_router(LandingPageApiRouter)
+app.include_router(ConformanceApiRouter)
 app.include_router(ProcessesApiRouter)
+app.include_router(JobsApiRouter)

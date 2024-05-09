@@ -35,22 +35,6 @@ for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     importlib.import_module(name)
 
 
-@router.delete(
-    "/jobs/{jobId}",
-    responses={
-        200: {"model": StatusInfo, "description": "The status of a job."},
-        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
-        500: {"model": Exception, "description": "A server error occurred."},
-    },
-    tags=["Jobs"],
-    summary="cancel a job execution, remove a finished job",
-    response_model_by_alias=True,
-)
-async def dismiss(
-    jobId: str = Path(..., description="local identifier of a job"),
-) -> StatusInfo:
-    """Cancel a job execution and remove it from the jobs list.  For more information, see [Section 14]https://docs.ogc.org/is/18-062r2/18-062r2.html#Dismiss). """
-    return BaseJobsApi.subclasses[0]().dismiss(jobId)
 
 
 @router.get(
@@ -59,7 +43,7 @@ async def dismiss(
         200: {"model": JobList, "description": "A list of jobs for this process."},
         404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
     },
-    tags=["Jobs"],
+    tags=["JobList"],
     summary="retrieve the list of jobs.",
     response_model_by_alias=True,
 )
@@ -69,6 +53,43 @@ async def get_jobs(
     return BaseJobsApi.subclasses[0]().get_jobs()
 
 
+
+@router.get(
+    "/jobs/{jobId}",
+    responses={
+        200: {"model": StatusInfo, "description": "The status of a job."},
+        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
+        500: {"model": Exception, "description": "A server error occurred."},
+    },
+    tags=["Status"],
+    summary="retrieve the status of a job",
+    response_model_by_alias=True,
+)
+async def get_status(
+    jobId: str = Path(..., description="local identifier of a job"),
+) -> StatusInfo:
+    """Shows the status of a job.   For more information, see [Section 7.10](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_retrieve_status_info). """
+    return BaseJobsApi.subclasses[0]().get_status(jobId)
+
+
+
+@router.delete(
+    "/jobs/{jobId}",
+    responses={
+        200: {"model": StatusInfo, "description": "The status of a job."},
+        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
+        500: {"model": Exception, "description": "A server error occurred."},
+    },
+    tags=["Dismiss"],
+    summary="cancel a job execution, remove a finished job",
+    response_model_by_alias=True,
+)
+async def dismiss(
+    jobId: str = Path(..., description="local identifier of a job"),
+) -> StatusInfo:
+    """Cancel a job execution and remove it from the jobs list.  For more information, see [Section 14]https://docs.ogc.org/is/18-062r2/18-062r2.html#Dismiss). """
+    return BaseJobsApi.subclasses[0]().dismiss(jobId)
+
 @router.get(
     "/jobs/{jobId}/results",
     responses={
@@ -76,7 +97,7 @@ async def get_jobs(
         404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
         500: {"model": Exception, "description": "A server error occurred."},
     },
-    tags=["Jobs"],
+    tags=["Result"],
     summary="retrieve the result(s) of a job",
     response_model_by_alias=True,
 )
@@ -86,21 +107,3 @@ async def get_result(
 ) -> Dict[str, InlineOrRefData]:
     """Lists available results of a job. In case of a failure, lists exceptions instead.  For more information, see [Section 7.11](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_retrieve_job_results). """
     return BaseJobsApi.subclasses[0]().get_result(jobId, prefer)
-
-
-@router.get(
-    "/jobs/{jobId}",
-    responses={
-        200: {"model": StatusInfo, "description": "The status of a job."},
-        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
-        500: {"model": Exception, "description": "A server error occurred."},
-    },
-    tags=["Jobs"],
-    summary="retrieve the status of a job",
-    response_model_by_alias=True,
-)
-async def get_status(
-    jobId: str = Path(..., description="local identifier of a job"),
-) -> StatusInfo:
-    """Shows the status of a job.   For more information, see [Section 7.10](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_retrieve_status_info). """
-    return BaseJobsApi.subclasses[0]().get_status(jobId)

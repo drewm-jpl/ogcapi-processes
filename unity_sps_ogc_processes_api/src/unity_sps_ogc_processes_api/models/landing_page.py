@@ -101,5 +101,3 @@ class LandingPage(BaseModel):
             "links": [Link.from_dict(_item) for _item in obj.get("links")] if obj.get("links") is not None else None
         })
         return _obj
-
-

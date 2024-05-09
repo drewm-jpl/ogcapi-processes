@@ -38,26 +38,20 @@ ns_pkg = openapi_server.impl
 for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
     importlib.import_module(name)
 
-
-@router.post(
-    "/processes/{processId}/execution",
+@router.get(
+    "/processes",
     responses={
-        200: {"model": Execute200Response, "description": "Result of synchronous execution"},
-        201: {"model": StatusInfo, "description": "Started asynchronous execution. Created job."},
-        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
-        500: {"model": Exception, "description": "A server error occurred."},
+        200: {"model": ProcessList, "description": "Information about the available processes"},
     },
-    tags=["Processes"],
-    summary="execute a process.",
+    tags=["ProcessList"],
+    summary="retrieve the list of available processes",
     response_model_by_alias=True,
 )
-async def execute(
-    processId:  str = Path(..., description=""),
-    execute: Execute = Body(None, description="An execution request specifying any inputs for the process to execute, and optionally to select specific outputs. With support for _Part 3: Workflows and chaining_, this execution request may specify a complex processing workflow e.g., including nested processes and OGC API collections as inputs."),
-    prefer: str = Header(None, description="Indicates client preferences, including whether the client is capable of asynchronous processing. A &#x60;respond-async&#x60; preference indicates a preference for asynchronous processing. A &#x60;wait: &lt;x&gt;s&#x60; preference indicates that the client prefers to wait up to x seconds to receive a reponse synchronously before the server falls back to asynchronous processing."),
-) -> Execute200Response:
-    """Executes a process (this may result in the creation of a job resource e.g., for _asynchronous execution_).  For more information, see [Section 7.9](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_create_job). """
-    return BaseProcessesApi.subclasses[0]().execute(processId, execute, prefer)
+async def get_processes(
+) -> ProcessList:
+    """The list of processes contains a summary of each process the OGC API - Processes offers, including the link to a more detailed description of the process.  For more information, see [Section 7.7]https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_list). """
+    return BaseProcessesApi.subclasses[0]().get_processes()
+
 
 
 @router.get(
@@ -66,7 +60,7 @@ async def execute(
         200: {"model": Process, "description": "A process description."},
         404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
     },
-    tags=["Processes"],
+    tags=["ProcessDescription"],
     summary="retrieve a process description",
     response_model_by_alias=True,
 )
@@ -77,16 +71,24 @@ async def get_process_description(
     return BaseProcessesApi.subclasses[0]().get_process_description(processId)
 
 
-@router.get(
-    "/processes",
+
+
+@router.post(
+    "/processes/{processId}/execution",
     responses={
-        200: {"model": ProcessList, "description": "Information about the available processes"},
+        200: {"model": Execute200Response, "description": "Result of synchronous execution"},
+        201: {"model": StatusInfo, "description": "Started asynchronous execution. Created job."},
+        404: {"model": Exception, "description": "The requested resource does not exist on the server. For example, a path parameter had an incorrect value."},
+        500: {"model": Exception, "description": "A server error occurred."},
     },
-    tags=["Processes"],
-    summary="retrieve the list of available processes",
+    tags=["Execute"],
+    summary="execute a process.",
     response_model_by_alias=True,
 )
-async def get_processes(
-) -> ProcessList:
-    """The list of processes contains a summary of each process the OGC API - Processes offers, including the link to a more detailed description of the process.  For more information, see [Section 7.7]https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_process_list). """
-    return BaseProcessesApi.subclasses[0]().get_processes()
+async def execute(
+    processId:  str = Path(..., description=""),
+    execute: Execute = Body(None, description="An execution request specifying any inputs for the process to execute, and optionally to select specific outputs. With support for _Part 3: Workflows and chaining_, this execution request may specify a complex processing workflow e.g., including nested processes and OGC API collections as inputs."),
+    prefer: str = Header(None, description="Indicates client preferences, including whether the client is capable of asynchronous processing. A &#x60;respond-async&#x60; preference indicates a preference for asynchronous processing. A &#x60;wait: &lt;x&gt;s&#x60; preference indicates that the client prefers to wait up to x seconds to receive a reponse synchronously before the server falls back to asynchronous processing."),
+) -> Execute200Response:
+    """Executes a process (this may result in the creation of a job resource e.g., for _asynchronous execution_).  For more information, see [Section 7.9](https://docs.ogc.org/is/18-062r2/18-062r2.html#sc_create_job). """
+    return BaseProcessesApi.subclasses[0]().execute(processId, execute, prefer)

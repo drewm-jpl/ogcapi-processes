@@ -22,10 +22,15 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from unity_sps_ogc_processes_api.models.input import Input
 from unity_sps_ogc_processes_api.models.output import Output
 from unity_sps_ogc_processes_api.models.subscriber import Subscriber
+from unity_sps_ogc_processes_api.models.input_value_no_object1 import InputValueNoObject1
+from unity_sps_ogc_processes_api.models.link import Link
+from unity_sps_ogc_processes_api.models.qualified_input_value1 import QualifiedInputValue1
+from unity_sps_ogc_processes_api.models.bbox import Bbox
+
 try:
     from typing import Self
 except ImportError:
@@ -35,7 +40,8 @@ class Execute(BaseModel):
     """
     Execute
     """ # noqa: E501
-    inputs: Optional[Dict[str, Input]] = None
+    # inputs: Optional[Dict[str, Input]] = None
+    inputs: Optional[Dict[str, Union[Union[Union[Bbox, List[object], bool, float, int, str], Link, QualifiedInputValue1], List[Union[Union[Bbox, List[object], bool, float, int, str], Link, QualifiedInputValue1]]]]] = None
     outputs: Optional[Dict[str, Output]] = None
     subscriber: Optional[Subscriber] = None
     __properties: ClassVar[List[str]] = ["inputs", "outputs", "subscriber"]
