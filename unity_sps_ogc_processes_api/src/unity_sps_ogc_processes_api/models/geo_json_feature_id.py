@@ -42,7 +42,7 @@ class GeoJSONFeatureId(BaseModel):
     # data type: str
     oneof_schema_2_validator: Optional[StrictStr] = None
     actual_instance: Optional[Union[float, str]] = None
-    one_of_schemas: List[str] = Literal["float", "str"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -151,5 +151,3 @@ class GeoJSONFeatureId(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

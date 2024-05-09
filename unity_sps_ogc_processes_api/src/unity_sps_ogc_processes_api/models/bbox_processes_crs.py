@@ -46,7 +46,7 @@ class BboxProcessesCrs(BaseModel):
         actual_instance: Optional[Union[str]] = None
     else:
         actual_instance: Any = None
-    any_of_schemas: List[str] = Literal[BBOXPROCESSESCRS_ANY_OF_SCHEMAS]
+    any_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -144,5 +144,3 @@ class BboxProcessesCrs(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

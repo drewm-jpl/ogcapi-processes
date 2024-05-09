@@ -44,7 +44,7 @@ class Metadata(BaseModel):
     # data type: MetadataOneOf1
     oneof_schema_2_validator: Optional[MetadataOneOf1] = None
     actual_instance: Optional[Union[MetadataOneOf, MetadataOneOf1]] = None
-    one_of_schemas: List[str] = Literal["MetadataOneOf", "MetadataOneOf1"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -145,5 +145,3 @@ class Metadata(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

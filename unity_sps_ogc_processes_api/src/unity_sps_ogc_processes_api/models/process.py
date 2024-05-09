@@ -27,6 +27,7 @@ from unity_sps_ogc_processes_api.models.input_description import InputDescriptio
 from unity_sps_ogc_processes_api.models.job_control_options import JobControlOptions
 from unity_sps_ogc_processes_api.models.link import Link
 from unity_sps_ogc_processes_api.models.metadata import Metadata
+from unity_sps_ogc_processes_api.models.metadata_one_of1 import MetadataOneOf1
 from unity_sps_ogc_processes_api.models.output_description import OutputDescription
 try:
     from typing import Self
@@ -40,7 +41,7 @@ class Process(BaseModel):
     title: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     keywords: Optional[List[StrictStr]] = None
-    metadata: Optional[List[Metadata]] = None
+    metadata: Optional[List[MetadataOneOf1]] = None
     id: StrictStr
     version: StrictStr
     job_control_options: Optional[List[JobControlOptions]] = Field(default=None, alias="jobControlOptions")
@@ -148,5 +149,3 @@ class Process(BaseModel):
             else None
         })
         return _obj
-
-

@@ -121,5 +121,3 @@ class Execute(BaseModel):
             "subscriber": Subscriber.from_dict(obj.get("subscriber")) if obj.get("subscriber") is not None else None
         })
         return _obj
-
-

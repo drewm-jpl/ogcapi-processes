@@ -22,7 +22,7 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from unity_sps_ogc_processes_api.models.metadata_one_of1_value import MetadataOneOf1Value
 try:
     from typing import Self
@@ -36,7 +36,7 @@ class MetadataOneOf1(BaseModel):
     role: Optional[StrictStr] = None
     title: Optional[StrictStr] = None
     lang: Optional[StrictStr] = None
-    value: Optional[MetadataOneOf1Value] = None
+    value: Optional[Union[str, object]] = None
     __properties: ClassVar[List[str]] = ["role", "title", "lang", "value"]
 
     model_config = {
@@ -97,5 +97,3 @@ class MetadataOneOf1(BaseModel):
             "value": MetadataOneOf1Value.from_dict(obj.get("value")) if obj.get("value") is not None else None
         })
         return _obj
-
-

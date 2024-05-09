@@ -42,7 +42,7 @@ class InputDescriptionAllOfMaxOccurs(BaseModel):
     # data type: str
     oneof_schema_2_validator: Optional[StrictStr] = None
     actual_instance: Optional[Union[int, str]] = None
-    one_of_schemas: List[str] = Literal["int", "str"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -151,5 +151,3 @@ class InputDescriptionAllOfMaxOccurs(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

@@ -44,7 +44,7 @@ class ModelSchema(BaseModel):
     # data type: SchemaOneOf
     # oneof_schema_2_validator: Optional[SchemaOneOf] = None
     actual_instance: Optional[Union[Reference, SchemaOneOf]] = None
-    # one_of_schemas: List[str] = Literal["Reference", "SchemaOneOf"]
+    # one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,

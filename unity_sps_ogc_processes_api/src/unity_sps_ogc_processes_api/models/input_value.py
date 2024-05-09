@@ -43,7 +43,7 @@ class InputValue(BaseModel):
     # data type: object
     oneof_schema_2_validator: Optional[Dict[str, Any]] = None
     actual_instance: Optional[Union[InputValueNoObject, object]] = None
-    one_of_schemas: List[str] = Literal["InputValueNoObject", "object"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -148,5 +148,3 @@ class InputValue(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

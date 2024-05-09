@@ -26,6 +26,8 @@ from typing import Any, ClassVar, Dict, List, Optional
 from unity_sps_ogc_processes_api.models.job_control_options import JobControlOptions
 from unity_sps_ogc_processes_api.models.link import Link
 from unity_sps_ogc_processes_api.models.metadata import Metadata
+from unity_sps_ogc_processes_api.models.metadata_one_of1 import MetadataOneOf1
+
 try:
     from typing import Self
 except ImportError:
@@ -38,7 +40,7 @@ class ProcessSummary(BaseModel):
     title: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     keywords: Optional[List[StrictStr]] = None
-    metadata: Optional[List[Metadata]] = None
+    metadata: Optional[List[MetadataOneOf1]] = None
     id: StrictStr
     version: StrictStr
     job_control_options: Optional[List[JobControlOptions]] = Field(default=None, alias="jobControlOptions")
@@ -118,5 +120,3 @@ class ProcessSummary(BaseModel):
             "links": [Link.from_dict(_item) for _item in obj.get("links")] if obj.get("links") is not None else None
         })
         return _obj
-
-

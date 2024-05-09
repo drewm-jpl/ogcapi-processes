@@ -56,7 +56,7 @@ class GeoJSONFeatureGeometry(BaseModel):
     # data type: GeoJSONMultiPolygon
     oneof_schema_6_validator: Optional[GeoJSONMultiPolygon] = None
     actual_instance: Optional[Union[GeoJSONLineString, GeoJSONMultiLineString, GeoJSONMultiPoint, GeoJSONMultiPolygon, GeoJSONPoint, GeoJSONPolygon]] = None
-    one_of_schemas: List[str] = Literal["GeoJSONLineString", "GeoJSONMultiLineString", "GeoJSONMultiPoint", "GeoJSONMultiPolygon", "GeoJSONPoint", "GeoJSONPolygon"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -201,5 +201,3 @@ class GeoJSONFeatureGeometry(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

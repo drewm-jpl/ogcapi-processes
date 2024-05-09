@@ -43,7 +43,7 @@ class Input(BaseModel):
     # data type: List[InlineOrRefData1]
     oneof_schema_2_validator: Optional[List[InlineOrRefData1]] = None
     actual_instance: Optional[Union[InlineOrRefData1, List[InlineOrRefData1]]] = None
-    one_of_schemas: List[str] = Literal["InlineOrRefData1", "List[InlineOrRefData1]"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -148,5 +148,3 @@ class Input(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

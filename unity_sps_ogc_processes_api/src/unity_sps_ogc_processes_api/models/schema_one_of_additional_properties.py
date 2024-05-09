@@ -42,7 +42,7 @@ class SchemaOneOfAdditionalProperties(BaseModel):
     # data type: bool
     oneof_schema_2_validator: Optional[StrictBool] = None
     actual_instance: Optional[Union[Schema1, bool]] = None
-    one_of_schemas: List[str] = Literal["Schema1", "bool"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,

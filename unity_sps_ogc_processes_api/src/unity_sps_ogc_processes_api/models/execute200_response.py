@@ -55,7 +55,7 @@ class Execute200Response(BaseModel):
     # data type: Dict[str, InlineOrRefData]
     oneof_schema_8_validator: Optional[Dict[str, InlineOrRefData]] = None
     actual_instance: Optional[Union[Dict[str, InlineOrRefData], List[object], bool, float, int, object, str]] = None
-    one_of_schemas: List[str] = Literal["Dict[str, InlineOrRefData]", "List[object]", "bool", "file", "float", "int", "object", "str"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,

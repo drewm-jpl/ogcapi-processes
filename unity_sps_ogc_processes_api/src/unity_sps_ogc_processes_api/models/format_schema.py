@@ -42,7 +42,7 @@ class FormatSchema(BaseModel):
     # data type: object
     oneof_schema_2_validator: Optional[Dict[str, Any]] = None
     actual_instance: Optional[Union[object, str]] = None
-    one_of_schemas: List[str] = Literal["object", "str"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -151,5 +151,3 @@ class FormatSchema(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-

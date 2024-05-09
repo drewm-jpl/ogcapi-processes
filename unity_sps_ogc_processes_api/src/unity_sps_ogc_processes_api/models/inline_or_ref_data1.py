@@ -47,7 +47,7 @@ class InlineOrRefData1(BaseModel):
     # data type: Link
     oneof_schema_3_validator: Optional[Link] = None
     actual_instance: Optional[Union[InputValueNoObject1, Link, QualifiedInputValue1]] = None
-    one_of_schemas: List[str] = Literal["InputValueNoObject1", "Link", "QualifiedInputValue1"]
+    one_of_schemas: List[str] = None
 
     model_config = {
         "validate_assignment": True,
@@ -159,5 +159,3 @@ class InlineOrRefData1(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
-
-
