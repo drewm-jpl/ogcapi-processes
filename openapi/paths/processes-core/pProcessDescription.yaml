@@ -11,9 +11,9 @@ get:
    tags:
      - Processes
    parameters:
-     - $ref: "../../parameters/processes-core/processId-path.yaml"
+     - $ref: "/Users/drewm/Downloads/ogcapi-processes/openapi/parameters/processes-core/processId-path.yaml"
    responses:
      200:
-       $ref: "../../responses/processes-core/rProcessDescription.yaml"
+       $ref: "/Users/drewm/Downloads/ogcapi-processes/openapi/responses/processes-core/rProcessDescription.yaml"
      404:
-       $ref: "../../responses/common-core/rNotFound.yaml"
+       $ref: "/Users/drewm/Downloads/ogcapi-processes/openapi/responses/common-core/rNotFound.yaml"

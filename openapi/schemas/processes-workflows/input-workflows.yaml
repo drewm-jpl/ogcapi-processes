@@ -1,5 +1,5 @@
 oneOf:
-  - $ref: "inlineOrRefData-workflows.yaml"
+  - $ref: "/Users/drewm/Downloads/ogcapi-processes/openapi/schemas/processes-workflows/inlineOrRefData-workflows.yaml"
   - type: array
     items:
-      $ref: "inlineOrRefData-workflows.yaml"
+      $ref: "/Users/drewm/Downloads/ogcapi-processes/openapi/schemas/processes-workflows/inlineOrRefData-workflows.yaml"
