@@ -38,12 +38,13 @@ paths:
    /processes/{processId}:
       # OGC API - Processes Part 1: Core
       #$ref: 'paths/processes-core/pProcessDescription.yaml'
-      
+
       # OGC API - Processes Part 2: Deploy, Replace, Undeploy
       $ref: 'paths/processes-dru/pProcessDescriptionReplaceUndeploy.yaml'
 
    /processes/{processId}/execution:
       $ref: 'paths/processes-workflows/pExecution-workflows.yaml'
+      # $ref: 'paths/processes-core/pExecution.yaml'
 
    # OGC API - Processes - Part 1: Core (Jobs, required for ASync execution)
    /jobs:
@@ -61,6 +62,7 @@ components:
       # $ref: './schemas/index.yaml' # Not supported?
       # https://davidgarcia.dev/posts/how-to-split-open-api-spec-into-multiple-files/ vs.
       # https://stackoverflow.com/questions/64940379/ref-ing-multiple-files-at-the-components-schemas-top-level-in-openapi-3
+
 
       # Common - Core
       confClasses:
@@ -99,6 +101,7 @@ components:
          $ref: 'schemas/dynamic/enumeration.yaml'
       processes-list:
          $ref: 'schemas/dynamic/processes-list.yaml'
+
 
       # Processes - Core
       processSummary:
@@ -200,7 +203,7 @@ components:
 
       # OGC API - Common - Part 2: Deploy, Replace, Undeploy
       w:
-         $ref: 'parameters/processes-dru/w-param.yaml'      
+         $ref: 'parameters/processes-dru/w-param.yaml'
 
    responses:
       # Generic Errors

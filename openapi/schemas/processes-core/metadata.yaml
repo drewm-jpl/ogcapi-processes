@@ -1,6 +1,6 @@
 oneOf:
   - allOf:
-    - $ref: ../common-core/link.yaml
+    - $ref: /Users/drewm/Downloads/ogcapi-processes/openapi/schemas/common-core/link.yaml
     - type: object
       properties:
         role:
@@ -17,4 +17,3 @@ oneOf:
          oneOf:
            - type: string
            - type: object
-
